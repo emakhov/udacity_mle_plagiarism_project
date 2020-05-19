@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.externals import joblib
 
 ## TODO: Import any additional libraries you need to define a model
-
+from sklearn.ensemble import GradientBoostingClassifier as Gbc
 
 # Provided model load function
 def model_fn(model_dir):
@@ -51,20 +51,16 @@ if __name__ == '__main__':
     train_y = train_data.iloc[:,0]
     train_x = train_data.iloc[:,1:]
     
-    
     ## --- Your code here --- ##
-    
+    loss = 'deviance'
+    learning_rate = 0.01
 
     ## TODO: Define a model 
-    model = None
+    model = Gbc(loss=loss,learning_rate=learning_rate) 
     
-    
-    ## TODO: Train the model
-    
-    
-    
+    ## TODO: Train the model    
+    model = model.fit(train_x, train_y)
     ## --- End of your code  --- ##
-    
 
     # Save the trained model
     joblib.dump(model, os.path.join(args.model_dir, "model.joblib"))
